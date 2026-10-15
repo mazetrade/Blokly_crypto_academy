@@ -1,5 +1,9 @@
 # Blokly Academy
 
+### 🌐 [Visit Blokly Academy → blokly-crypto-academy.vercel.app](https://blokly-crypto-academy.vercel.app/)
+
+No installation needed. Just open the link in your browser and start learning.
+
 **Blokly Academy** is an educational platform that helps beginners learn about cryptocurrency and blockchain technology. Lessons use plain language and everyday analogies. For example, Bitcoin is described as "digital gold", a smart contract as "a digital vending machine", and a private key as "your house key". The goal is to make the subject approachable for people with no technical or financial background.
 
 ## What you'll find in the Academy
@@ -35,11 +39,13 @@ This is an early version of the platform. Some features are not finished yet:
 
 ## Run it locally
 
+To use the Academy, open the [live site](https://blokly-crypto-academy.vercel.app/). These steps are only for developers who want to run or change the code.
+
 You need [Node.js](https://nodejs.org/) version 20.19 or newer.
 
 ```bash
-git clone https://github.com/mazetrade/blokly.git
-cd blokly
+git clone https://github.com/mazetrade/Blokly_crypto_academy.git
+cd Blokly_crypto_academy
 npm install
 npm run dev
 ```
