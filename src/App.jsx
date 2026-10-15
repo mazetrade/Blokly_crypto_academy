@@ -449,6 +449,32 @@ function App() {
   const [selectedPaper, setSelectedPaper] = useState(null); 
   const [authMode, setAuthMode] = useState(null); 
 
+  // --- NEW AI COPILOT STATE ---
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatInput, setChatInput] = useState('');
+  const [chatMessages, setChatMessages] = useState([
+    { sender: 'ai', text: "Hi! I'm your Blokly AI Tutor 🎓. Are you a beginner, or do you already know some crypto basics?" }
+  ]);
+
+  // --- NEW AI COPILOT LOGIC ---
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
+
+    // 1. Add user's message to the chat
+    const newMessages = [...chatMessages, { sender: 'user', text: chatInput }];
+    setChatMessages(newMessages);
+    setChatInput('');
+
+    // 2. Simulate the AI "thinking" and replying after 1 second
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, { 
+        sender: 'ai', 
+        text: "That is a great question! Since I am currently in 'Demo Mode', I recommend checking out the 'Crypto Projects' tab on the left to start learning. Soon, I'll be fully connected to a real AI brain!" 
+      }]);
+    }, 1000);
+  };
+
   const handleTabClick = (id) => {
     setActiveTab(id);
     setSelectedProject(null); 
@@ -721,7 +747,7 @@ function App() {
             </div>
           )}
 
-          {/* 10. SUBSCRIPTIONS */}
+  {/* 10. SUBSCRIPTIONS */}
           {activeTab === 'subscription' && (
             <div className="pricing-layout">
               {PLANS.map((plan) => (
@@ -741,6 +767,36 @@ function App() {
               ))}
             </div>
           )}
+
+          {/* --- AI COPILOT WIDGET --- */}
+          <div className={`copilot-window ${isChatOpen ? 'open' : ''}`}>
+            <div className="copilot-header">
+              <span className="copilot-title">🤖 Blokly Tutor</span>
+              <button className="close-chat-btn" onClick={() => setIsChatOpen(false)}>×</button>
+            </div>
+            
+            <div className="copilot-messages">
+              {chatMessages.map((msg, idx) => (
+                <div key={idx} className={`message-bubble ${msg.sender === 'user' ? 'user-msg' : 'ai-msg'}`}>
+                  {msg.text}
+                </div>
+              ))}
+            </div>
+
+            <form className="copilot-input-area" onSubmit={handleSendMessage}>
+              <input 
+                type="text" 
+                placeholder="Ask me anything..." 
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+              />
+              <button type="submit" className="send-btn">➤</button>
+            </form>
+          </div>
+
+          <button className="copilot-fab" onClick={() => setIsChatOpen(!isChatOpen)}>
+            🤖
+          </button>
 
         </div>
       </div>
